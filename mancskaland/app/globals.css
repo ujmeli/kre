@@ -80,3 +80,49 @@ input:focus,textarea:focus{outline-color:var(--pink)}
 button:focus-visible,a:focus-visible,summary:focus-visible{outline-color:#007a73}
 @media(max-width:1050px){.hero-copy:after{font-size:35px;right:12px;top:8px}.hero-label{font-size:8px;letter-spacing:.6px}}
 @media(max-width:760px){.hero-art{border-left:0;border-top:2px solid var(--navy);border-radius:45px 45px 0 0}.hero-copy:after{font-size:45px;right:20px;top:14px}.hero-label{font-size:9px}.sidebar .nav.active{transform:none}.features{padding-top:28px}.hero-actions .primary,.hero-actions .secondary{margin-bottom:4px}}
+
+/* ---- Dizájnfinomítás: nyugodtabb színek, látható feladat, kincstár üres állapota ---- */
+
+/* 3. Színek: a pink a fő gomboké, a többi felület csendesebb */
+.features>span,.features>span:nth-child(2),.features>span:nth-child(3){background:#fff;color:var(--navy);border:1px solid #c9d3df;box-shadow:0 4px 0 #e3e9ef}
+.features>span>svg,.features>span:nth-child(3)>svg{width:46px;height:46px;padding:11px;border-radius:14px;border:1.5px solid var(--navy);background:var(--teal);color:var(--navy)}
+.features>span:nth-child(2)>svg{background:var(--lime);color:var(--navy)}
+.features>span:nth-child(3)>svg{background:var(--yellow)}
+.features small,.features>span:nth-child(2) small{color:var(--muted)}
+.bottom-banner{background:#e9fbf9;border:1px solid #9fded8;box-shadow:none}
+.bottom-banner>svg{color:var(--pink)}
+.stats>div,.stats>div:nth-child(2),.stats>div:nth-child(3){background:#fff;border:1px solid #c9d3df;box-shadow:0 4px 0 #e3e9ef;position:relative;overflow:hidden}
+.stats>div:before{content:'';position:absolute;inset:0 0 auto;height:6px;background:var(--teal)}
+.stats>div:nth-child(2):before{background:var(--yellow)}
+.stats>div:nth-child(3):before{background:var(--lime)}
+.stats span{color:var(--muted)}
+
+/* 4. Kincstár: a zárolt kincs halvány, a megszerzett kiemelt */
+.locked .gem-icon{background:#eef1f5;color:#8996a8;border:2px dashed #b9c3d0;box-shadow:none;opacity:1;transform:none}
+.locked h2{color:#6b7787}
+.treasure-card.earned{border:2px solid var(--navy);box-shadow:0 6px 0 var(--yellow)}
+.treasure-card.earned .gem-icon{transform:rotate(-6deg) scale(1.04)}
+.map-panel{background:#e9fbf9;border:1px solid #9fded8}
+.first-treasure{display:flex;align-items:center;gap:26px;background:#fff;border:2px solid var(--navy);box-shadow:0 6px 0 var(--yellow);border-radius:24px;padding:28px 32px;margin-bottom:30px}
+.first-treasure .gem-icon{margin:0;flex-shrink:0;width:80px;height:80px;border-radius:24px}
+.first-treasure>div:nth-child(2){flex:1;min-width:0}
+.first-treasure h2{font-size:24px;margin-bottom:6px;text-wrap:balance}
+.first-treasure p{margin:0;font-size:14px}
+.first-treasure .primary{white-space:nowrap}
+
+/* 1. Játéktér: kép és feladat egymás mellett, a feladat azonnal látszik */
+.play-area{max-width:1120px}
+.play-art .scene{object-position:var(--pan,50%) center;transition:object-position .6s ease}
+@media(min-width:761px){
+ .play-card{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:stretch}
+ .play-art{aspect-ratio:auto;position:relative;min-height:440px;border-bottom:0;border-right:2px solid var(--navy)}
+ .play-art .scene{position:absolute;inset:0;width:100%;height:100%;transform:none}
+ .play-content{padding:34px 40px 38px}
+ .play-content h1{font-size:30px;margin-top:16px}
+}
+@media(max-width:760px){
+ .play-art{aspect-ratio:16/9}
+ .first-treasure{flex-direction:column;align-items:flex-start;padding:24px;gap:16px}
+ .first-treasure .primary{width:100%}
+}
+@media(prefers-reduced-motion:reduce){.play-art .scene{transition:none}}
