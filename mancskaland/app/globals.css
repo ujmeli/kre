@@ -126,3 +126,13 @@ button:focus-visible,a:focus-visible,summary:focus-visible{outline-color:#007a73
  .first-treasure .primary{width:100%}
 }
 @media(prefers-reduced-motion:reduce){.play-art .scene{transition:none}}
+
+/* Rögzítő kérdések és a kaland végi összefoglaló */
+.choices.record{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.choices.record button{padding:16px 18px}
+.recap{border:2px solid var(--navy);border-radius:20px;padding:22px 24px;margin:8px 0 22px;background:#fffbe6;box-shadow:0 4px 0 var(--yellow)}
+.recap h2{font-size:19px;margin-bottom:14px;text-wrap:balance}
+.recap dl{display:grid;gap:10px;margin:0}
+.recap dl>div{display:flex;justify-content:space-between;gap:16px;border-top:1px dashed #d9cf9f;padding-top:10px;flex-wrap:wrap}
+.recap dt{color:var(--muted);font-size:14px}
+.recap dd{margin:0;font-weight:700;color:var(--navy)}
