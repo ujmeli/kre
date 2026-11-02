@@ -14,10 +14,10 @@ function readLocal():State|null{try{const s=localStorage.getItem(LOCAL_KEY);retu
 function writeLocal(s:State){try{localStorage.setItem(LOCAL_KEY,JSON.stringify(s));return true}catch{return false}}
 const newId=()=>typeof crypto!=='undefined'&&typeof crypto.randomUUID==='function'?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2);
 const illustrations:Record<string,{file:string,alt:string}>={
-hero:{file:'neon-kozos-kaland',alt:'Gazdi térképpel, vizslával, beagle-lel és bozontos keverék kutyussal készül közös kalandra a napsütötte erdőben.'},
-forest:{file:'neon-aranycsont',alt:'Kíváncsi border collie követi a mancsnyomokat az öreg tölgy gyökereinél rejtőző aranycsonthoz.'},
-night:{file:'neon-holdko',alt:'Golden retriever fedez fel egy ragyogó holdkövet a holdfényes erdőben, egy bagoly társaságában.'},
-sand:{file:'neon-kincseslada',alt:'Vörös tacskó talál rá a hétpecsétes, aranyló kincsesládára a mohás erdei romok között.'}
+hero:{file:'pasztell-kozos-kaland',alt:'Gazdi térképpel guggol az ösvényen; egy vizsla, egy beagle és egy bozontos keverék kutya mancsnyomokat szimatol körülötte.'},
+forest:{file:'pasztell-aranycsont',alt:'Kíváncsi border collie követi a mancsnyomokat az öreg tölgy gyökereinél rejtőző aranycsonthoz.'},
+night:{file:'pasztell-holdko',alt:'Golden retriever fedez fel egy ragyogó holdkövet egy mohás sziklán, lila esti égbolt alatt; egy bagoly figyeli az ágról.'},
+sand:{file:'pasztell-kincseslada',alt:'Vörös tacskó szimatolja a hétpecsétes kincsesládát, amelyben egy aranykulcs ragyog; a háttérben kőkapu és kanyargó ösvény.'}
 };
 function Scene({variant='forest',priority=false}:{variant?:string,priority?:boolean}){
  const art=illustrations[variant]||illustrations.forest;
