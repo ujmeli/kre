@@ -1,4 +1,4 @@
-export type Step={title:string,text:string,type:'intro'|'choice'|'task'|'code'|'memory'|'finish',hint?:string,answer?:string,options?:string[],gentle?:string};
+export type Step={title:string,text:string,type:'intro'|'choice'|'task'|'code'|'memory'|'finish',hint?:string,answer?:string,answers?:string[],options?:string[],gentle?:string};
 export type Adventure={id:string,title:string,subtitle:string,time:number,level:string,place:string,color:string,icon:string,xp:number,reward:string,steps:Step[]};
 export const adventures:Adventure[]=[
 {id:'csont',title:'Az elveszett csont nyomában',subtitle:'Egy titokzatos levél. Három nyom. És egy orr, amely sosem téved.',time:15,level:'Kezdő',place:'Bárhol',color:'forest',icon:'bone',xp:120,reward:'Aranycsont',steps:[
@@ -7,7 +7,7 @@ export const adventures:Adventure[]=[
 {title:'Az őr üzenete',type:'code',text:'A kapu mögött egy fatáblán ezt látjátok: „Egy mancs: 2. Két mancs: 4. Három mancs: ?” A helyes számmal kinyílik a nyomdoboz.',answer:'6',hint:'Minden mancs kettőt ér. Háromszor kettő?'},
 {title:'A néma tanú',type:'task',text:'Keressetek három különböző felületet: valami simát, valami érdeset és valami puhát. Te nézd meg vagy érintsd meg őket; a kutyád szabadon szimatolhat. Melyik mellett időzik el? Jegyezd meg: az erdő puha őrzője rejti a következő nyomot.',gentle:'Otthon is jó: párna, törölköző és egy sima doboz. Semmit nem kell a kutyának megérintenie.'},
 {title:'Boróka ösvénye',type:'task',text:'Tedd a kedvenc játékot jól látható helyre egy puha takaró mellé. Induljatok el lassan együtt, és hagyd, hogy a kutyád felfedezze. Amikor megtalálta, ünnepeljétek meg egy nyugodt dicsérettel!',gentle:'Tedd a játékot a kutya pihenőhelye mellé. A felfedezéshez egy odanézés vagy szimatolás is elég.'},
-{title:'Az utolsó zár',type:'code',text:'A ládikán ez áll: „Nem kő, nem fa. Puha őrző, alváskor takar.” Mi mellett volt a játék? Írd be a tárgy nevét.',answer:'takaró',hint:'A feladatban egy puha TAKARÓ mellé tetted.'},
+{title:'Az utolsó zár',type:'code',text:'A ládikán ez áll: „Nem kő, nem fa. Puha őrző, alváskor takar.” Mi mellett volt a játék? Írd be a tárgy nevét.',answer:'takaró',answers:['takarót','takarónál','takaró mellett','pléd','plédet'],hint:'A feladatban egy puha TAKARÓ mellé tetted.'},
 {title:'Megkerült az aranycsont!',type:'finish',text:'Boróka mosolyogva veszi át az erdő kincsét. A kiválasztott kapu rúnája rákerül az aranycsontra. Az igazi nyomozópáros ti vagytok: egymásra figyelve fejtettétek meg a rejtélyt.'}]},
 {id:'holdko',title:'Az eltűnt holdkő titka',subtitle:'Az éjszakai erdő elcsendesedett. Vajon ki őrzi a holdfényt?',time:20,level:'Középhaladó',place:'Otthon / kert',color:'night',icon:'moon',xp:180,reward:'Holdkő',steps:[
 {title:'A fénytelen éjszaka',type:'intro',text:'Luna bagoly lámpása kialudt. A holdkő három darabra tört, és csak egy figyelmes csapat találhatja meg őket. Készíts elő három biztonságos tárgyat és egy kendőt. Jegyezd meg az ősi jeleket: HOLD – CSILLAG – NAP.'},
@@ -23,9 +23,12 @@ export const adventures:Adventure[]=[
 {title:'Harmadik pecsét: a számsor',type:'code',text:'A lakaton ez áll: 1, 2, 4, 8, … Melyik szám következik?',answer:'16',hint:'Minden szám az előző kétszerese.'},
 {title:'Negyedik pecsét: a kör',type:'task',text:'Keress egy kerek tárgyat a környezetben. Járjátok körül lassan, ha a kutyád szívesen követ. A pecséten egy KÖR jelenik meg. Jegyezd fel ezt a szót.',gentle:'Rajzolj egy kört a papírra, miközben a társad pihen melletted.'},
 {title:'Ötödik pecsét: a szimat',type:'task',text:'A kedvenc játékot tedd két nagyobb, stabil tárgy közé jól láthatóan. A kutyád megkeresheti, te pedig rögzítsd a felfedezést. Semmit nem kell felborítani vagy megmászni.',gentle:'Mutasd meg a játékot közvetlenül a kutyád mellett.'},
-{title:'Hatodik pecsét: emlék',type:'code',text:'Milyen alakzat jelent meg a negyedik pecséten?',answer:'kör',hint:'Nincs sarka, és visszatér önmagába.'},
+{title:'Hatodik pecsét: emlék',type:'code',text:'Milyen alakzat jelent meg a negyedik pecséten?',answer:'kör',answers:['kört','karika','kerek'],hint:'Nincs sarka, és visszatér önmagába.'},
 {title:'Hetedik pecsét: a ti rúnátok',type:'code',text:'Add össze a kaputok rúnáját és a harmadik pecsét megoldását (16). Hold = 2, Nap = 4, Lomb = 6. Mi a láda kódja?',answer:'branch',hint:'Holdkapu: 18, Napkapu: 20, Lombkapu: 22.'},
 {title:'A láda igazi kincse',type:'finish',text:'A hetedik pecsét is felnyílik. A ládában egy kulcs és egy üzenet vár: „A legjobb kaland az, amelyben figyeltek egymásra.” Az Erdő kulcsa mostantól a ti kincstáratokban ragyog.'}]}
 ];
-export const normalize=(s:string)=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
+export const normalize=(s:string)=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ').trim();
 export const answerFor=(step:Step,branch:string)=>step.answer==='branch'?String(16+({'Holdkapu':2,'Napkapu':4,'Lombkapu':6}[branch]||2)):step.answer;
+// A fő megfejtés mellett az `answers` alternatívákat is elfogadjuk; a névelő (a, az, egy) nem számít.
+const bare=(s:string)=>normalize(s).replace(/^(az?|egy) /,'');
+export const accepts=(step:Step,branch:string,value:string)=>{const v=bare(value);return v!==''&&[answerFor(step,branch),...(step.answers||[])].some(a=>typeof a==='string'&&bare(a)===v)};
